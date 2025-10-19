@@ -10,12 +10,14 @@ import Patients from "./pages/Patients.jsx";
 import Doctors from "./pages/Doctors.jsx";
 import Appointments from "./pages/Appointments.jsx";
 import Billing from "./pages/Billing.jsx";
+import Navbar from "./components/Navbar.jsx";
 
 // Optional: PrivateRoute wrapper for protected routes
 import PrivateRoute from "./components/PrivateRoute.jsx";
 
 const App = () => {
   return (
+
     <Routes>
       <Route path="/login" element={<Login />} />
 

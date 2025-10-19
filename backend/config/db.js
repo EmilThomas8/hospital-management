@@ -1,4 +1,6 @@
-// backend/config/db.js
+// ================================
+// Database configuration for Neon PostgreSQL
+// ================================
 
 import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
@@ -6,29 +8,23 @@ import dotenv from "dotenv";
 // Load environment variables
 dotenv.config();
 
-// Create a new Sequelize instance using .env variables
+// Create Sequelize instance for Neon PostgreSQL
 const sequelize = new Sequelize(
-  process.env.DB_NAME,     // Database name
-  process.env.DB_USER,     // Database username
-  process.env.DB_PASS,     // Database password
+  `postgresql://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?sslmode=require&channel_binding=require`,
   {
-    host: process.env.DB_HOST,   // Database host
-    dialect: process.env.DB_DIALECT, // e.g. postgres
-    port: process.env.DB_PORT || 5432, // Default PostgreSQL port
-    logging: process.env.LOG_LEVEL === "debug" ? console.log : false, // Log queries only in debug mode
+    dialect: "postgres",
+    logging: false, // Disable SQL logs
   }
 );
 
-// Function to test the database connection
-export const connectDB = async () => {
+// Test connection
+(async () => {
   try {
     await sequelize.authenticate();
-    console.log("✅ Database connection established successfully.");
+    console.log("✅ Database connected successfully!");
   } catch (error) {
-    console.error("❌ Unable to connect to the database:", error.message);
-    process.exit(1); // Exit if DB fails to connect
+    console.error("❌ Database connection failed:", error);
   }
-};
+})();
 
-// Export sequelize instance for models
 export default sequelize;

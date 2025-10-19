@@ -1,13 +1,13 @@
-// backend/models/Appointment.js
+// ================================
+// Appointment Model
+// ================================
 
 import { DataTypes } from "sequelize";
 import sequelize from "../config/db.js";
 import Patient from "./Patient.js";
 import Doctor from "./Doctor.js";
 
-// ================================
-// 📌 Appointment Model Definition
-// ================================
+// Appointment model stores appointments between patients and doctors
 const Appointment = sequelize.define(
   "Appointment",
   {
@@ -15,12 +15,6 @@ const Appointment = sequelize.define(
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
-    },
-    appointmentCode: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      defaultValue: () => `AP-${Math.floor(100000 + Math.random() * 900000)}`,
     },
     patientId: {
       type: DataTypes.INTEGER,
@@ -39,15 +33,11 @@ const Appointment = sequelize.define(
       },
     },
     appointmentDate: {
-      type: DataTypes.DATEONLY,
-      allowNull: false,
-    },
-    appointmentTime: {
-      type: DataTypes.TIME,
+      type: DataTypes.DATE,
       allowNull: false,
     },
     status: {
-      type: DataTypes.ENUM("scheduled", "completed", "cancelled", "no_show"),
+      type: DataTypes.ENUM("scheduled", "completed", "cancelled"),
       defaultValue: "scheduled",
     },
     notes: {
@@ -56,24 +46,18 @@ const Appointment = sequelize.define(
     },
   },
   {
-    timestamps: true,
     tableName: "appointments",
+    timestamps: true, // adds createdAt and updatedAt
   }
 );
 
 // ================================
 // 🔗 Associations
 // ================================
-// Appointment belongs to Patient
+// Each appointment belongs to a patient
 Appointment.belongsTo(Patient, { foreignKey: "patientId", as: "patient" });
 
-// Appointment belongs to Doctor
+// Each appointment belongs to a doctor
 Appointment.belongsTo(Doctor, { foreignKey: "doctorId", as: "doctor" });
-
-// Optional: Patient has many appointments
-Patient.hasMany(Appointment, { foreignKey: "patientId", as: "appointments" });
-
-// Optional: Doctor has many appointments
-Doctor.hasMany(Appointment, { foreignKey: "doctorId", as: "appointments" });
 
 export default Appointment;

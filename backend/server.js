@@ -4,34 +4,50 @@
 // Author: Emil Thomas
 // ================================
 
+// backend/server.js
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { Sequelize } from "sequelize";
+import sequelize from "./config/db.js"; // your db.js using export default
 
-// Load environment variables from .env file
+// Load environment variables
 dotenv.config();
 
-// Create express app
 const app = express();
-
-// Middleware
 app.use(cors());
-app.use(express.json()); // Parses JSON request bodies
+app.use(express.json());
 
-// --------------------------------------
-// ✅ Database Configuration (PostgreSQL)
-// --------------------------------------
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASS,
-  {
-    host: process.env.DB_HOST || "localhost",
-    dialect: "postgres",
-    logging: false, // Disable SQL logging for cleaner output
-  }
-);
+// Import models
+import "./models/User.js";
+import "./models/Patient.js";
+import "./models/Doctor.js";
+import "./models/Appointment.js";
+import "./models/Bill.js";
+
+// Routes (you’ll create these)
+import userRoutes from "./routes/userRoutes.js";
+import patientRoutes from "./routes/patientRoutes.js";
+import doctorRoutes from "./routes/doctorRoutes.js";
+import appointmentRoutes from "./routes/appointmentRoutes.js";
+import billingRoutes from "./routes/billingRoutes.js";
+
+// Use routes
+app.use("/api/users", userRoutes);
+app.use("/api/patients", patientRoutes);
+app.use("/api/doctors", doctorRoutes);
+app.use("/api/appointments", appointmentRoutes);
+app.use("/api/billing", billingRoutes);
+
+// Test endpoint
+app.get("/", (req, res) => {
+  res.send("🏥 Hospital Management System Backend is running...");
+});
+
+// Error handling
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: "Internal Server Error" });
+});
 
 // Test DB connection
 (async () => {
@@ -43,40 +59,7 @@ const sequelize = new Sequelize(
   }
 })();
 
-// --------------------------------------
-// ✅ Import Models (Later you'll add them)
-// --------------------------------------
-// import "./models/Patient.js";
-// import "./models/Doctor.js";
-// import "./models/Appointment.js";
-// import "./models/Bill.js";
-
-// --------------------------------------
-// ✅ Import Routes (You’ll add these later)
-// --------------------------------------
-// import patientRoutes from "./routes/patientRoutes.js";
-// import doctorRoutes from "./routes/doctorRoutes.js";
-// import appointmentRoutes from "./routes/appointmentRoutes.js";
-// import billingRoutes from "./routes/billingRoutes.js";
-
-// --------------------------------------
-// ✅ Example API Route (Test Endpoint)
-// --------------------------------------
-app.get("/", (req, res) => {
-  res.send("🏥 Hospital Management System Backend is running...");
-});
-
-// --------------------------------------
-// ✅ Error Handling Middleware (basic)
-// --------------------------------------
-app.use((err, req, res, next) => {
-  console.error("🔥 Error:", err.stack);
-  res.status(500).json({ error: "Internal Server Error" });
-});
-
-// --------------------------------------
-// ✅ Start Server
-// --------------------------------------
+// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
