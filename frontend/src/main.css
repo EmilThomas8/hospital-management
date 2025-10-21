@@ -1,10 +1,10 @@
 /* frontend/src/services/assets/styles/main.css */
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  background: #f6f7fb;
+}
   
   .app-container {
     display: flex;
@@ -15,13 +15,28 @@ body {
     padding: 20px;
   }
   
-  .navbar,
-  .sidebar,
-  .footer {
-    background-color: #0d6efd;
-    color: white;
-    padding: 10px;
-  }
+.navbar, .footer {
+  background-color: #0d6efd;
+  color: white;
+  padding: 10px;
+}
+
+.page { padding: 24px; }
+.sidebar { width: 220px; background: #fff; border-right: 1px solid #eee; padding: 16px; }
+.sidebar ul { list-style: none; padding: 0; margin: 0; }
+.sidebar li { margin: 8px 0; }
+.sidebar a { text-decoration: none; color: #333; }
+
+.card { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 16px; }
+
+.modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; }
+.modal { background: #fff; border-radius: 8px; width: 520px; max-width: 92vw; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+.modal-header, .modal-footer { padding: 12px 16px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between; }
+.modal-footer { border-top: 1px solid #eee; border-bottom: 0; }
+.modal-body { padding: 16px; }
+button.primary { background: #2563eb; color: #fff; border: 0; padding: 8px 12px; border-radius: 6px; }
+
+.error { color: #b91c1c; background: #fee2e2; border: 1px solid #fecaca; padding: 8px 12px; border-radius: 6px; margin: 12px 0; }
   
   .table {
     width: 100%;

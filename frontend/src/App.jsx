@@ -11,6 +11,13 @@ import Doctors from "./pages/Doctors.jsx";
 import Appointments from "./pages/Appointments.jsx";
 import Billing from "./pages/Billing.jsx";
 import Navbar from "./components/Navbar.jsx";
+// Newly added pages
+import Admissions from "./pages/Admissions.jsx";
+import Rooms from "./pages/Rooms.jsx";
+import Beds from "./pages/Beds.jsx";
+import EMR from "./pages/EMR.jsx";
+import Scheduling from "./pages/Scheduling.jsx";
+import Reports from "./pages/Reports.jsx";
 
 // Optional: PrivateRoute wrapper for protected routes
 import PrivateRoute from "./components/PrivateRoute.jsx";
@@ -59,6 +66,54 @@ const App = () => {
         element={
           <PrivateRoute>
             <Billing />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/admissions"
+        element={
+          <PrivateRoute>
+            <Admissions />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/rooms"
+        element={
+          <PrivateRoute>
+            <Rooms />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/beds"
+        element={
+          <PrivateRoute>
+            <Beds />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/emr"
+        element={
+          <PrivateRoute>
+            <EMR />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/scheduling"
+        element={
+          <PrivateRoute>
+            <Scheduling />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/reports"
+        element={
+          <PrivateRoute>
+            <Reports />
           </PrivateRoute>
         }
       />
