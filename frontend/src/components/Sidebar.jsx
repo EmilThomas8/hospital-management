@@ -22,6 +22,24 @@ const Sidebar = () => {
         <li>
           <Link to="/billing">Billing</Link>
         </li>
+        <li>
+          <Link to="/admissions">Admissions</Link>
+        </li>
+        <li>
+          <Link to="/rooms">Rooms</Link>
+        </li>
+        <li>
+          <Link to="/beds">Beds</Link>
+        </li>
+        <li>
+          <Link to="/emr">EMR</Link>
+        </li>
+        <li>
+          <Link to="/scheduling">Scheduling</Link>
+        </li>
+        <li>
+          <Link to="/reports">Reports</Link>
+        </li>
       </ul>
     </aside>
   );

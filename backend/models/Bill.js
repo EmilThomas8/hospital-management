@@ -36,6 +36,24 @@ const Bill = sequelize.define(
       type: DataTypes.FLOAT,
       allowNull: false,
     },
+    insuranceProvider: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    insurancePolicyNumber: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    claimNumber: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      unique: false,
+    },
+    claimStatus: {
+      type: DataTypes.ENUM("not_applicable", "draft", "submitted", "approved", "rejected", "paid"),
+      defaultValue: "not_applicable",
+      allowNull: false,
+    },
     status: {
       type: DataTypes.ENUM("pending", "paid", "cancelled"),
       defaultValue: "pending",
